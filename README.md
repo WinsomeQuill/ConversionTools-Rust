@@ -7,7 +7,7 @@ You can find examples of using all functions in the [ConversionTools-Rust-Exampl
 Get All Tasks
 ---
 ```Rust
-use conversion_tools_api::api::get_tasks
+use conversion_tools_api::api::get_tasks;
 
 let tasks: String = get_tasks("api_url", "your_token");
 println!("{}", tasks); //print json response
@@ -16,7 +16,7 @@ println!("{}", tasks); //print json response
 Upload File
 ---
 ```Rust
-use conversion_tools_api::api::upload_file
+use conversion_tools_api::api::upload_file;
 
 let result: String = upload_file("api_url", "your_token", &"path");
 println!("{}", result); //print json response
@@ -25,7 +25,8 @@ println!("{}", result); //print json response
 Create task (start converting)
 ---
 ```Rust
-use conversion_tools_api::api::create_task
+use std::collections::HashMap;
+use conversion_tools_api::api::create_task;
 
 let mut args: HashMap<&str, &str> = HashMap::new();
 args.insert("orientation", "Portrait");
@@ -38,7 +39,7 @@ println!("{}", result); //print json response
 Get Task
 ---
 ```Rust
-use conversion_tools_api::api::get_task
+use conversion_tools_api::api::get_task;
 
 let result: String = get_task("api_url", "your_token", &"task_id");
 println!("{}", result); //print json response
@@ -47,7 +48,7 @@ println!("{}", result); //print json response
 Download File
 ---
 ```Rust
-use conversion_tools_api::api::download_file
+use conversion_tools_api::api::download_file;
 
 download_file("api_url", "your_token", &"file_id", "output_path");
 ```
