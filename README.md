@@ -1,8 +1,12 @@
 # ConversionTools Rust
-This Conversion Tools API Rust client allows you to use the site API and convert files faster and more conveniently. 
+This Conversion Tools API Rust client allows you to use the site API and convert files faster and more conveniently.
+
+Site [**Conversion Tools**](https://conversiontools.io/) allows you to convert files from one format to another.
+
+To use the library, you will need a **API-Token**, which you can find in [**your profile**](https://conversiontools.io/profile).
 
 # How to use
-You can find examples of using all functions in the [ConversionTools-Rust-Examples](https://github.com/WinsomeQuill/ConversionTools-Rust-Examples/blob/main/src/main.rs) repository 
+You can find examples of using all functions in the [**ConversionTools-Rust-Examples**](https://github.com/WinsomeQuill/ConversionTools-Rust-Examples/blob/main/src/main.rs) repository 
 
 Get All Tasks
 ---
