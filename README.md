@@ -13,7 +13,7 @@ Get All Tasks
 ```Rust
 use conversion_tools_api::api::get_tasks;
 
-let tasks: String = get_tasks("api_url", "your_token");
+let tasks: Value = get_tasks("api_url", "your_token");
 println!("{}", tasks); //print json response
 ```
 
@@ -22,7 +22,7 @@ Upload File
 ```Rust
 use conversion_tools_api::api::upload_file;
 
-let result: String = upload_file("api_url", "your_token", &"path");
+let result: Value = upload_file("api_url", "your_token", &"path");
 println!("{}", result); //print json response
 ```
 
@@ -36,7 +36,7 @@ let mut args: HashMap<&str, &str> = HashMap::new();
 args.insert("orientation", "Portrait");
 
 let type_convert: &str = "convert.jpg_to_pdf";
-let result: String = create_task("api_url", "your_token", &type_convert, &"file_id", &args);
+let result: Value = create_task("api_url", "your_token", &type_convert, &"file_id", &args);
 println!("{}", result); //print json response
 ```
 
@@ -45,7 +45,7 @@ Get Task
 ```Rust
 use conversion_tools_api::api::get_task;
 
-let result: String = get_task("api_url", "your_token", &"task_id");
+let result: Value = get_task("api_url", "your_token", &"task_id");
 println!("{}", result); //print json response
 ```
 
