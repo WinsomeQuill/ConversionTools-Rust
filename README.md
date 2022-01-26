@@ -11,18 +11,20 @@ You can find examples of using all functions in the [**ConversionTools-Rust-Exam
 Get All Tasks
 ---
 ```Rust
-use conversion_tools_api::api::get_tasks;
+use conversion_tools_api::api::Api;
 
-let tasks: Value = get_tasks("api_url", "your_token");
+let object: Api = Api::new(String::from("Your Token"), String::from("Url"));
+let tasks: Value = object.get_tasks();
 println!("{}", tasks); //print json response
 ```
 
 Upload File
 ---
 ```Rust
-use conversion_tools_api::api::upload_file;
+use conversion_tools_api::api::Api;
 
-let result: Value = upload_file("api_url", "your_token", &"path");
+let object: Api = Api::new(String::from("Your Token"), String::from("Url"));
+let result: Value = object.upload_file(&"path");
 println!("{}", result); //print json response
 ```
 
@@ -30,29 +32,32 @@ Create task (start converting)
 ---
 ```Rust
 use std::collections::HashMap;
-use conversion_tools_api::api::create_task;
+use conversion_tools_api::api::Api;
 
 let mut args: HashMap<&str, &str> = HashMap::new();
 args.insert("orientation", "Portrait");
 
 let type_convert: &str = "convert.jpg_to_pdf";
-let result: Value = create_task("api_url", "your_token", &type_convert, &"file_id", &args);
+let object: Api = Api::new(String::from("Your Token"), String::from("Url"));
+let result: Value = object.create_task(&type_convert, &"file_id", &args);
 println!("{}", result); //print json response
 ```
 
 Get Task
 ---
 ```Rust
-use conversion_tools_api::api::get_task;
+use conversion_tools_api::api::Api;
 
-let result: Value = get_task("api_url", "your_token", &"task_id");
+let object: Api = Api::new(String::from("Your Token"), String::from("Url"));
+let result: Value = object.get_task(&"task_id");
 println!("{}", result); //print json response
 ```
 
 Download File
 ---
 ```Rust
-use conversion_tools_api::api::download_file;
+use conversion_tools_api::api::Api;
 
-download_file("api_url", "your_token", &"file_id", "output_path");
+let object: Api = Api::new(String::from("Your Token"), String::from("Url"));
+object.download_file(&"file_id", "output_path");
 ```
