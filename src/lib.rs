@@ -7,59 +7,63 @@
 pub mod api {
     use std::{io, collections::HashMap, fs::File};
     use reqwest;
-    use reqwest::blocking::{Client, multipart};
-    use serde_json::{Value, json};
+    use reqwest::blocking::multipart::Form;
+    use reqwest::blocking::{Client, multipart, Response};
+    use serde_json::{Value, from_str, json};
 
-    pub fn get_tasks(url: &str, token: &str) -> String {
-        let furl = format!("{}/tasks", &url);
-        let client = Client::new();
+    pub fn get_tasks(url: &str, token: &str) -> Value {
+        let furl: String = format!("{}/tasks", &url);
+        let client: Client = Client::new();
 
-        let resp = client
+        let resp: Value = match client 
             .get(&furl)
             .bearer_auth(&token)
             .header("Content-Type", "application/json")
             .header("User-Agent", "conversion_tools_rust_reqwest")
-            .send()
-            .unwrap();
-
-        resp.text().unwrap()
+            .send() {
+                Ok(response) => from_str(&response.text().unwrap()).unwrap(),
+                Err(_) => json!({}),
+            };
+        resp
     }
 
-    pub fn get_task(url: &str, token: &str, task_id: &str) -> String {
-        let furl = format!("{}/tasks/{}", &url, &task_id);
-        let client = Client::new();
+    pub fn get_task(url: &str, token: &str, task_id: &str) -> Value {
+        let furl: String = format!("{}/tasks/{}", &url, &task_id);
+        let client: Client = Client::new();
 
-        let resp = client
+        let resp: Value = match client
             .get(&furl)
             .bearer_auth(&token)
             .header("Content-Type", "application/json")
             .header("User-Agent", "conversion_tools_rust_reqwest")
-            .send()
-            .unwrap();
-
-        resp.text().unwrap()
+            .send() {
+                Ok(response) => from_str(&response.text().unwrap()).unwrap(),
+                Err(_) => json!({}),
+            };
+        resp
     }
 
-    pub fn upload_file(url: &str, token: &str, path: &str) -> String {
-        let furl = format!("{}/files", &url);
-        let form = multipart::Form::new()
+    pub fn upload_file(url: &str, token: &str, path: &str) -> Value {
+        let furl: String = format!("{}/files", &url);
+        let form: Form = multipart::Form::new()
             .file("file=@", &path).unwrap();
 
             
-        let client = Client::new();
-        let res = client
+        let client: Client = Client::new();
+        let res: Value = match client
             .post(&furl)
             .bearer_auth(&token)
             .header("Content-Type", "multipart/form-data")
             .header("User-Agent", "conversion_tools_rust_reqwest")
             .multipart(form)
-            .send()
-            .unwrap();
-
-        res.text().unwrap()
+            .send() {
+                Ok(response) => from_str(&response.text().unwrap()).unwrap(),
+                Err(_) => json!({}),
+            };
+        res
     }
 
-    pub fn create_task(url: &str, token: &str, type_conv: &str, file_id: &str, args: &HashMap<&str, &str>) -> String {
+    pub fn create_task(url: &str, token: &str, type_conv: &str, file_id: &str, args: &HashMap<&str, &str>) -> Value {
         let mut json_task: serde_json::Value = json!({});
 
         json_task["type"] = Value::String(type_conv.to_string());
@@ -74,26 +78,27 @@ pub mod api {
             }
         }
 
-        let furl = format!("{}/tasks", &url);
-        let client = Client::new();
+        let furl: String = format!("{}/tasks", &url);
+        let client: Client = Client::new();
 
-        let resp = client
+        let resp: Value = match client
             .post(&furl)
             .bearer_auth(&token)
             .header("Content-Type", "application/json")
             .header("User-Agent", "conversion_tools_rust_reqwest")
             .json(&json_task)
-            .send()
-            .unwrap();
-
-        resp.text().unwrap()
+            .send() {
+                Ok(response) => from_str(&response.text().unwrap()).unwrap(),
+                Err(_) => json!({}),
+            };
+        resp
     }
 
     pub fn download_file(url: &str, token: &str, file_id: &str, output_path: &str) {
-        let furl = format!("{}/files/{}", &url, &file_id);
-        let client = Client::new();
+        let furl: String = format!("{}/files/{}", &url, &file_id);
+        let client: Client = Client::new();
 
-        let mut resp = client
+        let mut resp: Response = client
             .get(&furl)
             .bearer_auth(&token)
             .header("Content-Type", "application/json")
@@ -101,7 +106,7 @@ pub mod api {
             .send()
             .unwrap();
 
-        let mut out = File::create(&output_path).unwrap();
+        let mut out: File = File::create(&output_path).unwrap();
         io::copy(&mut resp, &mut out).unwrap();
     }
 }
