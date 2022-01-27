@@ -14,8 +14,8 @@ Get All Tasks
 use conversion_tools_api::api::Api;
 
 let object: Api = Api::new(String::from("Your Token"), String::from("Url"));
-let tasks: Value = object.get_tasks();
-println!("{}", tasks); //print json response
+let tasks: Result<Value, Error> = object.get_tasks();
+println!("{}", tasks.unwrap()); //print json response
 ```
 
 Upload File
@@ -24,8 +24,8 @@ Upload File
 use conversion_tools_api::api::Api;
 
 let object: Api = Api::new(String::from("Your Token"), String::from("Url"));
-let result: Value = object.upload_file(&"path");
-println!("{}", result); //print json response
+let result: Result<Value, Error> = object.upload_file(&"path");
+println!("{}", result.unwrap()); //print json response
 ```
 
 Create task (start converting)
@@ -39,8 +39,8 @@ args.insert("orientation", "Portrait");
 
 let type_convert: &str = "convert.jpg_to_pdf";
 let object: Api = Api::new(String::from("Your Token"), String::from("Url"));
-let result: Value = object.create_task(&type_convert, &"file_id", &args);
-println!("{}", result); //print json response
+let result: Result<Value, Error> = object.create_task(&type_convert, &"file_id", &args);
+println!("{}", result.unwrap()); //print json response
 ```
 
 Get Task
@@ -49,8 +49,8 @@ Get Task
 use conversion_tools_api::api::Api;
 
 let object: Api = Api::new(String::from("Your Token"), String::from("Url"));
-let result: Value = object.get_task(&"task_id");
-println!("{}", result); //print json response
+let result: Result<Value, Error> = object.get_task(&"task_id");
+println!("{}", result.unwrap()); //print json response
 ```
 
 Download File
@@ -59,5 +59,5 @@ Download File
 use conversion_tools_api::api::Api;
 
 let object: Api = Api::new(String::from("Your Token"), String::from("Url"));
-object.download_file(&"file_id", "output_path");
+let result: Result<(), Error> = object.download_file(&"file_id", "output_path");
 ```
