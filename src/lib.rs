@@ -58,7 +58,7 @@ pub mod api {
             let res: Result<Value, Error> = match client
                 .post(&url)
                 .bearer_auth(&self.token)
-                .header("Content-Type", "multipart/form-data")
+                //.header("Content-Type", "multipart/form-data")
                 .header("User-Agent", "conversion_tools_rust_reqwest")
                 .multipart(form)
                 .send() {
