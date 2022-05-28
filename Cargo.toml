@@ -1,6 +1,6 @@
 [package]
 name = "conversion_tools_api"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2021"
 author = "WinsomeQuill"
 
@@ -8,4 +8,7 @@ author = "WinsomeQuill"
 
 [dependencies]
 reqwest = { version = "0.11", features = ["json", "blocking", "multipart"] }
-serde_json = "1.0"
+serde = { version = "1.0.104", features = ["derive"] }
+serde_json = "1.0.48"
+serde_derive = "1.0"
+chrono = { version="0.4.19",features = ["serde"] }

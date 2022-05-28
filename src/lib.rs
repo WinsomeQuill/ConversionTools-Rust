@@ -8,9 +8,13 @@ pub mod api {
     use std::{collections::HashMap, fs::File};
     use reqwest;
     use reqwest::Error;
-    use reqwest::blocking::multipart::Form;
-    use reqwest::blocking::{Client, multipart, Response};
-    use serde_json::{Value, from_str, json};
+    use reqwest::blocking::{Client, multipart, Response, multipart::Form};
+    use serde_json::{Value, json};
+    pub mod models;
+    use models::models::{
+        tasks::*, upload_file::*, 
+        task::*, create_task::*
+    };
 
     #[derive(Debug)]
     pub struct Api<'a> {
@@ -23,58 +27,70 @@ pub mod api {
             Api { token, url }
         }
 
-        pub fn get_tasks(&self) -> Result<Value, Error> {
+        pub fn get_tasks(&self) -> Result<Tasks, Error> {
             let url: String = format!("{}/tasks", &self.url);
             let client: Client = Client::new();
     
-            let resp: Result<Value, Error> = match client 
+            let resp: Result<Tasks, Error> = match client 
                 .get(&url)
                 .bearer_auth(&self.token)
                 .header("Content-Type", "application/json")
                 .header("User-Agent", "conversion_tools_rust_reqwest")
                 .send() {
-                    Ok(response) => Ok(from_str(&response.text().unwrap()).unwrap()),
+                    Ok(response) => {
+                        let t = &response.text().unwrap();
+                        let result: Tasks = serde_json::from_str(&t).unwrap();
+                        Ok(result)
+                    },
                     Err(e) => Err(e),
                 };
             resp
         }
 
-        pub fn get_task(&self, task_id: &str) -> Result<Value, Error> {
+        pub fn get_task(&self, task_id: &str) -> Result<Task, Error> {
             let url: String = format!("{}/tasks/{}", &self.url, &task_id);
             let client: Client = Client::new();
     
-            let resp: Result<Value, Error> = match client
+            let resp: Result<Task, Error> = match client
                 .get(&url)
                 .bearer_auth(&self.token)
                 .header("Content-Type", "application/json")
                 .header("User-Agent", "conversion_tools_rust_reqwest")
                 .send() {
-                    Ok(response) => Ok(from_str(&response.text().unwrap()).unwrap()),
+                    Ok(response) => {
+                        let t = &response.text().unwrap();
+                        let result: Task = serde_json::from_str(&t).unwrap();
+                        Ok(result)
+                    },
                     Err(e) => Err(e),
                 };
             resp
         }
 
-        pub fn upload_file(&self, path: &str) -> Result<Value, Error> {
+        pub fn upload_file(&self, path: &str) -> Result<UploadFile, Error> {
             let url: String = format!("{}/files", &self.url);
             let form: Form = multipart::Form::new()
                 .file("file=@", &path).unwrap();
                 
             let client: Client = Client::new();
-            let res: Result<Value, Error> = match client
+            let res: Result<UploadFile, Error> = match client
                 .post(&url)
                 .bearer_auth(&self.token)
                 //.header("Content-Type", "multipart/form-data")
                 .header("User-Agent", "conversion_tools_rust_reqwest")
                 .multipart(form)
                 .send() {
-                    Ok(response) => Ok(from_str(&response.text().unwrap()).unwrap()),
+                    Ok(response) => {
+                        let t = &response.text().unwrap();
+                        let result: UploadFile = serde_json::from_str(&t).unwrap();
+                        Ok(result)
+                    },
                     Err(e) => Err(e),
                 };
             res
         }
 
-        pub fn create_task(&self, type_conv: &str, file_id: &str, args: &HashMap<&str, &str>) -> Result<Value, Error> {
+        pub fn create_task(&self, type_conv: &str, file_id: &str, args: &HashMap<&str, &str>) -> Result<CreateTask, Error> {
             let mut json_task: serde_json::Value = json!({});
     
             json_task["type"] = Value::String(type_conv.to_string());
@@ -92,14 +108,18 @@ pub mod api {
             let url: String = format!("{}/tasks", &self.url);
             let client: Client = Client::new();
     
-            let resp: Result<Value, Error> = match client
+            let resp: Result<CreateTask, Error> = match client
                 .post(&url)
                 .bearer_auth(&self.token)
                 .header("Content-Type", "application/json")
                 .header("User-Agent", "conversion_tools_rust_reqwest")
                 .json(&json_task)
                 .send() {
-                    Ok(response) => Ok(from_str(&response.text().unwrap()).unwrap()),
+                    Ok(response) => {
+                        let t = &response.text().unwrap();
+                        let result: CreateTask = serde_json::from_str(&t).unwrap();
+                        Ok(result)
+                    },
                     Err(e) => Err(e),
                 };
             resp
