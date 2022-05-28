@@ -12,9 +12,15 @@ pub mod api {
     use reqwest::blocking::{Client, multipart, Response};
     use serde_json::{Value, from_str, json};
 
-    impl Api {
-        pub fn new(token: String, url: String) -> Api {
-            Api { token: token, url: url }
+    #[derive(Debug)]
+    pub struct Api<'a> {
+        token: String,
+        url: &'a str
+    }
+
+    impl <'a>Api<'a> {
+        pub fn new(token: String, url: &'a str) -> Api<'a> {
+            Api { token, url }
         }
 
         pub fn get_tasks(&self) -> Result<Value, Error> {
@@ -119,10 +125,5 @@ pub mod api {
                 Err(e) => Err(e),
             }
         }
-    }
-
-    pub struct Api {
-        token: String,
-        url: String
     }
 }
