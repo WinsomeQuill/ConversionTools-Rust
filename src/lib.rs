@@ -17,13 +17,13 @@ pub mod api {
     };
 
     #[derive(Debug)]
-    pub struct Api<'a> {
+    pub struct Api {
         token: String,
-        url: &'a str
+        url: String
     }
 
-    impl <'a>Api<'a> {
-        pub fn new(token: String, url: &'a str) -> Api<'a> {
+    impl Api {
+        pub fn new(token: String, url: String) -> Api {
             Api { token, url }
         }
 
