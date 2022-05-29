@@ -1,21 +1,21 @@
 pub mod models {
     pub mod upload_file {
-        use serde::Deserialize;
-        #[derive(Debug, Deserialize)]
+        use serde::{Deserialize, Serialize};
+        #[derive(Debug, Deserialize, Serialize)]
         pub struct UploadFile {
             pub error: Option<String>,
             pub file_id: String
         }
     }
     pub mod tasks {
-        use serde::Deserialize;
-        #[derive(Debug, Deserialize)]
+        use serde::{Deserialize, Serialize};
+        #[derive(Debug, Deserialize, Serialize)]
         pub struct Tasks {
             pub error: Option<String>,
             pub data: Vec<Data>
         }
 
-        #[derive(Debug, Deserialize)]
+        #[derive(Debug, Deserialize, Serialize)]
         pub struct FileSource {
             pub id: String,
             pub name: String,
@@ -23,7 +23,7 @@ pub mod models {
             pub exists: bool
         }
 
-        #[derive(Debug, Deserialize)]
+        #[derive(Debug, Deserialize, Serialize)]
         pub struct  FileResult {
             pub id: String,
             pub name: String,
@@ -31,7 +31,7 @@ pub mod models {
             pub exists: bool
         }
 
-        #[derive(Debug, Deserialize)]
+        #[derive(Debug, Deserialize, Serialize)]
         pub struct Data {
             pub id: String,
             #[serde(alias = "type")]
@@ -51,9 +51,9 @@ pub mod models {
         }
     }
     pub mod task {
-        use serde::Deserialize;
+        use serde::{Deserialize, Serialize};
 
-        #[derive(Debug, Deserialize)]
+        #[derive(Debug, Deserialize, Serialize)]
         pub struct Task {
             pub error: Option<String>,
             pub status: String,
@@ -64,15 +64,15 @@ pub mod models {
             pub conversion_result: ConversionResult
         }
 
-        #[derive(Debug, Deserialize)]
+        #[derive(Debug, Deserialize, Serialize)]
         pub struct ConversionResult {
             pub message: Option<String>
         }
     }
     pub mod create_task {
-        use serde::Deserialize;
+        use serde::{Deserialize, Serialize};
 
-        #[derive(Debug, Deserialize)]
+        #[derive(Debug, Deserialize, Serialize)]
         pub struct CreateTask {
             pub error: Option<String>,
             pub task_id: String
