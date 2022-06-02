@@ -61,7 +61,7 @@ pub mod models {
             #[serde(alias = "conversionProgress")]
             pub conversion_progress: u8,
             #[serde(alias = "conversionResult")]
-            pub conversion_result: ConversionResult
+            pub conversion_result: Option<ConversionResult>
         }
 
         #[derive(Debug, Deserialize, Serialize)]
