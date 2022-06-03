@@ -17,9 +17,9 @@ use conversion_tools_api::api::models::models::tasks::TasksResult;
 let url: &str = "api url";
 let object: Api = Api::new(String::from("Your Token"), &url);
 let tasks: Result<TasksResult, Error> = object.get_tasks();
-let variable = result.result.unwrap(); // get result struct
-println!("{}", result.json); // print json
-println!("{}", result.status_code); //print http code
+let variable = result.unwrap().result.unwrap(); // get result struct
+println!("{}", result.unwrap().json); // print json
+println!("{}", result.unwrap().status_code); //print http code
 ```
 
 Upload File
@@ -31,9 +31,9 @@ use conversion_tools_api::api::models::models::upload_file::UploadFileResult;
 let url: &str = "api url";
 let object: Api = Api::new(String::from("Your Token"), &url);
 let result: Result<UploadFileResult, Error> = object.upload_file(&"path");
-let variable = result.result.unwrap(); // get result struct
-println!("{}", result.json); // print json
-println!("{}", result.status_code); //print http code
+let variable = result.unwrap().result.unwrap(); // get result struct
+println!("{}", result.unwrap().json); // print json
+println!("{}", result.unwrap().status_code); //print http code
 ```
 
 Create task (start converting)
@@ -51,9 +51,9 @@ let type_convert: &str = "convert.jpg_to_pdf";
 let url: &str = "api url";
 let object: Api = Api::new(String::from("Your Token"), &url);
 let result: Result<CreateTaskResult, Error> = object.create_task(&type_convert, &"file_id", &args);
-let variable = result.result.unwrap(); // get result struct
-println!("{}", result.json); // print json
-println!("{}", result.status_code); //print http code
+let variable = result.unwrap().result.unwrap(); // get result struct
+println!("{}", result.unwrap().json); // print json
+println!("{}", result.unwrap().status_code); //print http code
 ```
 
 Get Task
@@ -65,9 +65,9 @@ use conversion_tools_api::api::models::models::task::TaskResult;
 let url: &str = "api url";
 let object: Api = Api::new(String::from("Your Token"), &url);
 let result: Result<TaskResult, Error> = object.get_task(&"task_id");
-let variable = result.result.unwrap(); // get result struct
-println!("{}", result.json); // print json
-println!("{}", result.status_code); //print http code
+let variable = result.unwrap().result.unwrap(); // get result struct
+println!("{}", result.unwrap().json); // print json
+println!("{}", result.unwrap().status_code); //print http code
 ```
 
 Download File
