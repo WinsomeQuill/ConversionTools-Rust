@@ -12,24 +12,28 @@ Get All Tasks
 ---
 ```Rust
 use conversion_tools_api::api::Api;
-use conversion_tools_api::api::models::models::tasks::Tasks;
+use conversion_tools_api::api::models::models::tasks::TasksResult;
 
 let url: &str = "api url";
 let object: Api = Api::new(String::from("Your Token"), &url);
-let tasks: Result<Tasks, Error> = object.get_tasks();
-println!("{:?}", tasks.unwrap()); //print struct
+let tasks: Result<TasksResult, Error> = object.get_tasks();
+let variable = result.result.unwrap(); // get result struct
+println!("{}", result.json); // print json
+println!("{}", result.status_code); //print http code
 ```
 
 Upload File
 ---
 ```Rust
 use conversion_tools_api::api::Api;
-use conversion_tools_api::api::models::models::upload_file::UploadFile;
+use conversion_tools_api::api::models::models::upload_file::UploadFileResult;
 
 let url: &str = "api url";
 let object: Api = Api::new(String::from("Your Token"), &url);
-let result: Result<UploadFile, Error> = object.upload_file(&"path");
-println!("{:?}", result.unwrap()); //print struct
+let result: Result<UploadFileResult, Error> = object.upload_file(&"path");
+let variable = result.result.unwrap(); // get result struct
+println!("{}", result.json); // print json
+println!("{}", result.status_code); //print http code
 ```
 
 Create task (start converting)
@@ -37,7 +41,7 @@ Create task (start converting)
 ```Rust
 use std::collections::HashMap;
 use conversion_tools_api::api::Api;
-use conversion_tools_api::api::models::models::create_task::CreateTask;
+use conversion_tools_api::api::models::models::create_task::CreateTaskResult;
 
 let mut args: HashMap<&str, &str> = HashMap::new();
 args.insert("orientation", "Portrait");
@@ -46,20 +50,24 @@ let type_convert: &str = "convert.jpg_to_pdf";
 
 let url: &str = "api url";
 let object: Api = Api::new(String::from("Your Token"), &url);
-let result: Result<CreateTask, Error> = object.create_task(&type_convert, &"file_id", &args);
-println!("{:?}", result.unwrap()); //print struct
+let result: Result<CreateTaskResult, Error> = object.create_task(&type_convert, &"file_id", &args);
+let variable = result.result.unwrap(); // get result struct
+println!("{}", result.json); // print json
+println!("{}", result.status_code); //print http code
 ```
 
 Get Task
 ---
 ```Rust
 use conversion_tools_api::api::Api;
-use conversion_tools_api::api::models::models::task::Task;
+use conversion_tools_api::api::models::models::task::TaskResult;
 
 let url: &str = "api url";
 let object: Api = Api::new(String::from("Your Token"), &url);
-let result: Result<Task, Error> = object.get_task(&"task_id");
-println!("{:?}", result.unwrap()); //print struct
+let result: Result<TaskResult, Error> = object.get_task(&"task_id");
+let variable = result.result.unwrap(); // get result struct
+println!("{}", result.json); // print json
+println!("{}", result.status_code); //print http code
 ```
 
 Download File

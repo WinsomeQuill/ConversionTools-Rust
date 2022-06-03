@@ -1,6 +1,13 @@
 pub mod models {
     pub mod upload_file {
         use serde::{Deserialize, Serialize};
+
+        pub struct UploadFileResult {
+            pub status_code: u16,
+            pub json: String,
+            pub result: Option<UploadFile>
+        }
+
         #[derive(Debug, Deserialize, Serialize)]
         pub struct UploadFile {
             pub error: Option<String>,
@@ -9,6 +16,13 @@ pub mod models {
     }
     pub mod tasks {
         use serde::{Deserialize, Serialize};
+
+        pub struct TasksResult {
+            pub status_code: u16,
+            pub json: String,
+            pub result: Option<Tasks>
+        }
+
         #[derive(Debug, Deserialize, Serialize)]
         pub struct Tasks {
             pub error: Option<String>,
@@ -53,6 +67,12 @@ pub mod models {
     pub mod task {
         use serde::{Deserialize, Serialize};
 
+        pub struct TaskResult {
+            pub status_code: u16,
+            pub json: String,
+            pub result: Option<Task>
+        }
+
         #[derive(Debug, Deserialize, Serialize)]
         pub struct Task {
             pub error: Option<String>,
@@ -71,6 +91,12 @@ pub mod models {
     }
     pub mod create_task {
         use serde::{Deserialize, Serialize};
+
+        pub struct CreateTaskResult {
+            pub status_code: u16,
+            pub json: String,
+            pub result: Option<CreateTask>
+        }
 
         #[derive(Debug, Deserialize, Serialize)]
         pub struct CreateTask {
