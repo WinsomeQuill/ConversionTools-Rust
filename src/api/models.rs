@@ -1,12 +1,15 @@
 pub mod models {
-    pub mod upload_file {
-        use serde::{Deserialize, Serialize};
-
-        pub struct UploadFileResult {
+    
+    pub mod result {
+        pub struct ResultApi<T> {
             pub status_code: u16,
             pub json: String,
-            pub result: Option<UploadFile>
+            pub result: Option<T>
         }
+    }
+
+    pub mod upload_file {
+        use serde::{Deserialize, Serialize};
 
         #[derive(Debug, Deserialize, Serialize)]
         pub struct UploadFile {
@@ -14,14 +17,9 @@ pub mod models {
             pub file_id: String
         }
     }
+    
     pub mod tasks {
         use serde::{Deserialize, Serialize};
-
-        pub struct TasksResult {
-            pub status_code: u16,
-            pub json: String,
-            pub result: Option<Tasks>
-        }
 
         #[derive(Debug, Deserialize, Serialize)]
         pub struct Tasks {
@@ -64,14 +62,9 @@ pub mod models {
             pub file_result: FileResult,
         }
     }
+
     pub mod task {
         use serde::{Deserialize, Serialize};
-
-        pub struct TaskResult {
-            pub status_code: u16,
-            pub json: String,
-            pub result: Option<Task>
-        }
 
         #[derive(Debug, Deserialize, Serialize)]
         pub struct Task {
@@ -89,14 +82,9 @@ pub mod models {
             pub message: Option<String>
         }
     }
+
     pub mod create_task {
         use serde::{Deserialize, Serialize};
-
-        pub struct CreateTaskResult {
-            pub status_code: u16,
-            pub json: String,
-            pub result: Option<CreateTask>
-        }
 
         #[derive(Debug, Deserialize, Serialize)]
         pub struct CreateTask {
