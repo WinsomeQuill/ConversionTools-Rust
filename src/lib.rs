@@ -18,17 +18,17 @@ pub mod api {
     };
     
     #[derive(Debug)]
-    pub(crate) struct Api {
+    pub struct Api {
         token: String,
         url: String
     }
 
     impl Api {
-        pub(crate) fn new(token: String, url: String) -> Api {
+        pub fn new(token: String, url: String) -> Api {
             Api { token, url }
         }
 
-        pub(crate) fn get_tasks(&self) -> Result<ResultApi<Tasks>, Error> {
+        pub fn get_tasks(&self) -> Result<ResultApi<Tasks>, Error> {
             let url: String = format!("{}/tasks", &self.url);
             let client: Client = Client::new();
     
@@ -52,7 +52,7 @@ pub mod api {
             resp
         }
 
-        pub(crate) fn get_task(&self, task_id: &str) -> Result<ResultApi<Task>, Error> {
+        pub fn get_task(&self, task_id: &str) -> Result<ResultApi<Task>, Error> {
             let url: String = format!("{}/tasks/{}", &self.url, &task_id);
             let client: Client = Client::new();
     
@@ -76,7 +76,7 @@ pub mod api {
             resp
         }
 
-        pub(crate) fn upload_file(&self, path: &str) -> Result<ResultApi<UploadFile>, Error> {
+        pub fn upload_file(&self, path: &str) -> Result<ResultApi<UploadFile>, Error> {
             let url: String = format!("{}/files", &self.url);
             let form: Form = multipart::Form::new()
                 .file("file=@", &path).unwrap();
@@ -103,7 +103,7 @@ pub mod api {
             res
         }
 
-        pub(crate) fn create_task(&self, type_conv: &str, file_id: &str, args: &HashMap<&str, &str>) -> Result<ResultApi<CreateTask>, Error> {
+        pub fn create_task(&self, type_conv: &str, file_id: &str, args: &HashMap<&str, &str>) -> Result<ResultApi<CreateTask>, Error> {
             let mut json_task: serde_json::Value = json!({});
     
             json_task["type"] = Value::String(type_conv.to_string());
@@ -142,7 +142,7 @@ pub mod api {
             resp
         }
 
-        pub(crate) fn download_file(&self, file_id: &str, output_path: &str) -> Result<(), std::io::Error> {
+        pub fn download_file(&self, file_id: &str, output_path: &str) -> Result<(), std::io::Error> {
             let url: String = format!("{}/files/{}", &self.url, &file_id);
             let client: Client = Client::new();
     
