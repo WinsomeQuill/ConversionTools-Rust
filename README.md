@@ -12,7 +12,7 @@ Get All Tasks
 ---
 ```Rust
 use conversion_tools_api::api::Api;
-use conversion_tools_api::api::models::models::tasks::TasksResult;
+use conversion_tools_api::models::models::api::TasksResult;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
@@ -31,7 +31,7 @@ Upload File
 ---
 ```Rust
 use conversion_tools_api::api::Api;
-use conversion_tools_api::api::models::models::upload_file::UploadFileResult;
+use conversion_tools_api::models::models::api::UploadFileResult;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
@@ -51,7 +51,7 @@ Create task (start converting)
 ```Rust
 use std::collections::HashMap;
 use conversion_tools_api::api::Api;
-use conversion_tools_api::api::models::models::create_task::CreateTaskResult;
+use conversion_tools_api::models::models::api::CreateTaskResult;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
@@ -76,7 +76,7 @@ Get Task
 ---
 ```Rust
 use conversion_tools_api::api::Api;
-use conversion_tools_api::api::models::models::task::TaskResult;
+use conversion_tools_api::models::models::api::TaskResult;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {

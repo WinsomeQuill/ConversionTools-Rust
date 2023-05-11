@@ -105,11 +105,11 @@ pub mod api {
                 "type": type_conv
             });
     
-            if file_id.len() != 0 {
+            if !file_id.is_empty() {
                 json_task["file_id"] = Value::String(file_id.to_string());
             }
     
-            if args.len() != 0 {
+            if !args.is_empty() {
                 for (k, v) in args.iter() {
                     json_task["options"][k] = Value::String(v.to_string());
                 }
@@ -160,4 +160,4 @@ pub mod api {
     }
 }
 
-mod models;
+pub mod models;
