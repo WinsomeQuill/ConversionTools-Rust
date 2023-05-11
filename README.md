@@ -14,12 +14,17 @@ Get All Tasks
 use conversion_tools_api::api::Api;
 use conversion_tools_api::api::models::models::tasks::TasksResult;
 
-let url: &str = "api url";
-let object: Api = Api::new(String::from("Your Token"), &url);
-let tasks: Result<TasksResult, Error> = object.get_tasks();
-let variable = result.unwrap().result.unwrap(); // get result struct
-println!("{}", result.unwrap().json); // print json
-println!("{}", result.unwrap().status_code); //print http code
+#[tokio::main]
+async fn main() -> std::io::Result<()> {
+    let api: Api = Api::new(String::from("Your Token"), String::from("api url")).await;
+    let result: Result<ResultApi<Tasks>, Error> = api.get_tasks().await;
+    let result_api: ResultApi<Tasks> = result.unwrap(); // get result struct
+    println!("{}", &result_api.json); // print json
+    println!("{}", result_api.status_code); // print http code
+    println!("{:?}", result_api.result); // print Tasks struct
+    
+    Ok(())
+}
 ```
 
 Upload File
@@ -28,12 +33,17 @@ Upload File
 use conversion_tools_api::api::Api;
 use conversion_tools_api::api::models::models::upload_file::UploadFileResult;
 
-let url: &str = "api url";
-let object: Api = Api::new(String::from("Your Token"), &url);
-let result: Result<UploadFileResult, Error> = object.upload_file(&"path");
-let variable = result.unwrap().result.unwrap(); // get result struct
-println!("{}", result.unwrap().json); // print json
-println!("{}", result.unwrap().status_code); //print http code
+#[tokio::main]
+async fn main() -> std::io::Result<()> {
+    let api: Api = Api::new(String::from("Your Token"), String::from("api url")).await;
+    let result: Result<ResultApi<UploadFile>, Error> = api.upload_file(&"path");
+    let result_api: ResultApi<UploadFile> = result.unwrap(); // get result struct
+    println!("{}", result_api.json); // print json
+    println!("{}", result_api.status_code); // print http code
+    println!("{:?}", result_api.result); // print UploadFile struct
+    
+    Ok(())
+}
 ```
 
 Create task (start converting)
@@ -43,17 +53,23 @@ use std::collections::HashMap;
 use conversion_tools_api::api::Api;
 use conversion_tools_api::api::models::models::create_task::CreateTaskResult;
 
-let mut args: HashMap<&str, &str> = HashMap::new();
-args.insert("orientation", "Portrait");
+#[tokio::main]
+async fn main() -> std::io::Result<()> {
+    let api: Api = Api::new(String::from("Your Token"), String::from("api url")).await;
+    
+    let mut args: HashMap<&str, &str> = HashMap::new();
+    args.insert("orientation", "Portrait");
 
-let type_convert: &str = "convert.jpg_to_pdf";
+    let type_convert: &str = "convert.jpg_to_pdf";
 
-let url: &str = "api url";
-let object: Api = Api::new(String::from("Your Token"), &url);
-let result: Result<CreateTaskResult, Error> = object.create_task(&type_convert, &"file_id", &args);
-let variable = result.unwrap().result.unwrap(); // get result struct
-println!("{}", result.unwrap().json); // print json
-println!("{}", result.unwrap().status_code); //print http code
+    let result: Result<ResultApi<CreateTask>, Error> = api.create_task(type_convert, "file_id", &args).await;
+    let result_api: ResultApi<CreateTask> = result.unwrap(); // get result struct
+    println!("{}", result_api.json); // print json
+    println!("{}", result_api.status_code); // print http code
+    println!("{:?}", result_api.result); //print CreateTask struct
+    
+    Ok(())
+}
 ```
 
 Get Task
@@ -62,12 +78,17 @@ Get Task
 use conversion_tools_api::api::Api;
 use conversion_tools_api::api::models::models::task::TaskResult;
 
-let url: &str = "api url";
-let object: Api = Api::new(String::from("Your Token"), &url);
-let result: Result<TaskResult, Error> = object.get_task(&"task_id");
-let variable = result.unwrap().result.unwrap(); // get result struct
-println!("{}", result.unwrap().json); // print json
-println!("{}", result.unwrap().status_code); //print http code
+#[tokio::main]
+async fn main() -> std::io::Result<()> {
+    let api: Api = Api::new(String::from("Your Token"), String::from("api url")).await;
+    let result: Result<ResultApi<Task>, Error> = api.get_task("task_id").await;
+    let result_api: ResultApi<Task> = result.unwrap(); // get result struct
+    println!("{}", result_api.json); // print json
+    println!("{}", result_api.status_code); //print http code
+    println!("{:?}", result_api.result); //print Task struct
+    
+    Ok(())
+}
 ```
 
 Download File
@@ -75,6 +96,11 @@ Download File
 ```Rust
 use conversion_tools_api::api::Api;
 
-let object: Api = Api::new(String::from("Your Token"), String::from("Url"));
-let result: Result<(), Error> = object.download_file(&"file_id", "output_path");
+#[tokio::main]
+async fn main() -> std::io::Result<()> {
+    let api: Api = Api::new(String::from("Your Token"), String::from("api url")).await;
+    let result: Result<(), Error> = api.download_file("file_id", "output_path").await;
+    
+    Ok(())
+}
 ```

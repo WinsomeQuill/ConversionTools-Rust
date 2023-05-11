@@ -1,14 +1,14 @@
 [package]
 name = "conversion_tools_api"
-version = "0.1.10"
+version = "0.1.12"
 edition = "2021"
 author = "WinsomeQuill"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-reqwest = { version = "0.11", features = ["json", "blocking", "multipart"] }
-serde = { version = "1.0.104", features = ["derive"] }
-serde_json = "1.0.48"
+reqwest = { version = "0.11", features = ["json", "multipart"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
 serde_derive = "1.0"
-chrono = { version="0.4.19",features = ["serde"] }
+chrono = { version="0.4",features = ["serde"] }
